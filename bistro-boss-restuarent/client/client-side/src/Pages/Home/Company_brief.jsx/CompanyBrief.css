@@ -1,0 +1,11 @@
+.company-brief {
+    position: relative;
+    background-image: url('../../../assets/home/chef-service.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
