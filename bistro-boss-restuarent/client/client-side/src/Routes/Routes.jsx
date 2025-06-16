@@ -5,6 +5,8 @@ import Home from "../Pages/Home/Home/Home.jsx";
 import Footer from "../Pages/Shared/Footer/Footer.jsx";
 import Menu from "../Pages/Menu/Menu/Menu.jsx";
 import Shop from "../Pages/Shop/Shop.jsx";
+import Login from "../Pages/Login/Login.jsx";
+import SignUp from "../Pages/SignUp/SignUp.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +24,14 @@ export const router = createBrowserRouter([
             {
                 path: 'shop/:category',
                 element: <Shop></Shop>
+            },
+            {
+                path: 'login',
+                element: <Login></Login>
+            },
+            {
+                path: 'signup',
+                element: <SignUp></SignUp>
             },
         ]
     },
