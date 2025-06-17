@@ -2,10 +2,13 @@ import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from "react-hook-form"
 import { AuthContext } from '../../Providers/AuthProvider';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser } = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = data => {
         console.log(data);
@@ -13,7 +16,19 @@ const SignUp = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log('User profile info updated');
+                        reset();
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "User Created Successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/');
+                    })
             })
             .catch(error => console.error(error));
     }
@@ -39,14 +54,21 @@ const SignUp = () => {
                                 <label className="label">Name</label>
                                 <input type="text" {...register("name", { required: true })} name='name' className="input" placeholder="Name" />
                                 {errors.name && <span className='text-red-500'>This field is required</span>}
+
+                                <label className="label">PhotoURL</label>
+                                <input type="text" {...register("photoURL", { required: true })} name='photoURL' className="input" placeholder="PhotoURL" />
+                                {errors.photoURL && <span className='text-red-500'>PhotoURL field is required</span>}
+
                                 <label className="label">Email</label>
                                 <input type="email" {...register("email", { required: true })} name='email' className="input" placeholder="Email" />
                                 {errors.email && <span className='text-red-500'>This field is required</span>}
+
                                 <label className="label">Password</label>
                                 <input type="password" {...register("password", { minLength: 6, maxLength: 20 })} className="input" placeholder="Password" />
                                 {errors.password?.type === "required" && (<p role="alert">Password is required</p>)}
                                 {errors.password?.type === "minLength" && (<p className='text-red-500'>Password must be 6 characters</p>)}
                                 {errors.password?.type === "maxLength" && (<p className='text-red-500'>Password must be less than 20 characters</p>)}
+
                                 <div><a className="link link-hover">Forgot password?</a></div>
                                 <input className="btn btn-neutral mt-4" type="submit" value="Sign Up" />
                             </fieldset>
