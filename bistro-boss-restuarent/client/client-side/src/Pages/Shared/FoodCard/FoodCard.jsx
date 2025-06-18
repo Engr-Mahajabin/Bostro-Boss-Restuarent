@@ -1,10 +1,60 @@
 import React from 'react';
+import useAuth from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2'
+import { useLocation, useNavigate } from 'react-router-dom';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+
 
 const FoodCard = ({ item }) => {
-    const { name, image, price, recipe } = item;
+    const { name, image, price, recipe, _id } = item;
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const axiosSecure = useAxiosSecure();
 
     const handleAddToCart = food => {
-        console.log(food);
+
+        if (user && user.email) {
+            //Todo: sent cart item to the database
+            console.log(user.email, food);
+            const cartItem = {
+                menuId: _id,
+                email: user.email,
+                name,
+                image,
+                price
+            }
+            axiosSecure.post('/carts', cartItem)
+                .then(res => {
+                    console.log(res.data);
+                    // Item cart a add hole alert jabe
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: `${name} added to the cart`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+        }
+        else {
+            Swal.fire({
+                title: "You are not logged in",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Please, login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send the user to the login page 
+                    navigate('/login', { state: { from: location } });
+                }
+            });
+        }
     }
 
     return (
