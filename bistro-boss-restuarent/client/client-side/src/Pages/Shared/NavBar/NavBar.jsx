@@ -13,7 +13,6 @@ const NavBar = () => {
         logOut()
             .then(() => { })
             .then(error => console.log(error));
-
     }
 
     const navOptions = (<>
@@ -40,6 +39,7 @@ const NavBar = () => {
         <li><Link to="dashboard">Dashboard</Link></li>
     </>
     );
+    
     return (
         <>
             <div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl mx-auto text-white bg-black shadow-sm">
