@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2'
+import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
@@ -69,6 +70,8 @@ const Login = () => {
                                 <input className="btn btn-neutral mt-4" type="submit" value="Login" />
                             </fieldset>
                         </form>
+                        <div className="divider">OR</div>
+                        <SocialLogin></SocialLogin>
                         <div className='text-center'>
                             <p><small>New Here? <Link to="/signup">Create an account</Link></small></p>
                         </div>
