@@ -2,12 +2,13 @@ import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaCalendar, FaCalendarCheck, FaEnvelope, FaHome, FaList, FaShopify, FaShoppingCart, FaStar, FaUsers, FaUtensils, FaWallet } from 'react-icons/fa';
 import useCart from '../Hooks/useCart';
+import useAdmin from '../Hooks/useAdmin';
 
 const Dashboard = () => {
     const [cart] = useCart();
 
     //Get Admni value from the database:
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className='flex'>
@@ -70,30 +71,6 @@ const Dashboard = () => {
                                 </li>
                             </>
                     }
-                    {/* <li><NavLink to='/dashboard/userHome'>
-                        <FaHome></FaHome>
-                        User Home</NavLink>
-                    </li>
-                    <li><NavLink to='/dashboard/reservation'>
-                        <FaCalendar></FaCalendar>
-                        Reservation</NavLink>
-                    </li>
-                    <li><NavLink to='/dashboard/paymentHistory'>
-                        <FaWallet></FaWallet>
-                        Payment History</NavLink>
-                    </li>
-                    <li><NavLink to='/dashboard/cart'>
-                        <FaShoppingCart></FaShoppingCart>
-                        My Cart({cart.length})</NavLink>
-                    </li>
-                    <li><NavLink to='/dashboard/addReview'>
-                        <FaStar></FaStar>
-                        Add Review</NavLink>
-                    </li>
-                    <li><NavLink to='/dashboard/myBooking'>
-                        <FaCalendarCheck></FaCalendarCheck>
-                        My Booking</NavLink>
-                    </li> */}
 
                     <div className="divider"></div>
 
