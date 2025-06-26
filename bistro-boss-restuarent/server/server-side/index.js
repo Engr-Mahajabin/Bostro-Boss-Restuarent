@@ -82,8 +82,9 @@ async function run() {
             const user = await userCollection.findOne(query);
             let admin = false;
             if (user) {
-                admin = user?.role === 'admin';
+                admin = user?.role === 'Admin';
             }
+            console.log("Admin Check - DB User:", user); // ✅ এটা দিন
             res.send({ admin });
         })
 
@@ -131,7 +132,7 @@ async function run() {
         })
 
         // Carts Collection:
-        app.get('/carts', async (req, res) => {
+        app.get('/carts', verifyToken, async (req, res) => { // change krsi 
             const email = req.query.email;
             const query = { email: email }
             const result = await cartCollection.find(query).toArray();
