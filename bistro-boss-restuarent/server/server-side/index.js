@@ -68,7 +68,7 @@ async function run() {
         }
 
         //Users Collection:
-        app.get('/users', verifyToken, verifyAdmin, async (req, res) => {
+        app.get('/users', verifyToken, verifyAdmin, async (req, res) => {                      // verifyAdmin chilo
             const result = await userCollection.find().toArray();
             res.send(result);
         })
@@ -80,16 +80,17 @@ async function run() {
             }
             const query = { email: email };
             const user = await userCollection.findOne(query);
+            //res.send(user);
             let admin = false;
             if (user) {
-                admin = user?.role === 'Admin';
+                admin = user?.role === 'admin';
             }
             console.log("Admin Check - DB User:", user); // ✅ এটা দিন
             res.send({ admin });
         })
 
         // Check if the user is an Admin:
-        app.patch('/users/admin/:id', verifyToken, verifyAdmin, async (req, res) => {
+        app.patch('/users/admin/:id', verifyToken, verifyAdmin, async (req, res) => {         //VerfyAdmin chilo
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const updatedDoc = {
@@ -112,7 +113,7 @@ async function run() {
             res.send(result);
         })
 
-        app.delete('/users/:id', verifyToken, verifyAdmin, async (req, res) => {
+        app.delete('/users/:id', verifyToken, verifyAdmin, async (req, res) => {            //VerifyAdmin chilo
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await userCollection.deleteOne(query);

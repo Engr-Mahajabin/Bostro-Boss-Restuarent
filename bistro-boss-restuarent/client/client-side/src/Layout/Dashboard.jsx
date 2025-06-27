@@ -9,6 +9,7 @@ const Dashboard = () => {
 
     //Get Admni value from the database:
     const [isAdmin] = useAdmin();
+    console.log('Admin', isAdmin);
 
     return (
         <div className='flex'>

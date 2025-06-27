@@ -60,10 +60,12 @@ export const router = createBrowserRouter([
             {
                 path: 'addItems',
                 element: <AdminRoutes><AddItems></AddItems></AdminRoutes>
+                // element: <AddItems></AddItems>
             },
             {
                 path: 'allUsers',
                 element: <AdminRoutes><AllUsers></AllUsers></AdminRoutes>
+                // element: <AllUsers></AllUsers>
             },
         ]
     }
