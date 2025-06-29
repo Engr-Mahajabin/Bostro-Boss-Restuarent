@@ -2,7 +2,6 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home.jsx";
-import Footer from "../Pages/Shared/Footer/Footer.jsx";
 import Menu from "../Pages/Menu/Menu/Menu.jsx";
 import Shop from "../Pages/Shop/Shop.jsx";
 import Login from "../Pages/Login/Login.jsx";
@@ -14,6 +13,7 @@ import Cart from "../Pages/Dashboard/Cart/Cart.jsx";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers.jsx";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems.jsx";
 import AdminRoutes from "./AdminRoutes.jsx";
+import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
                 path: 'addItems',
                 element: <AdminRoutes><AddItems></AddItems></AdminRoutes>
                 // element: <AddItems></AddItems>
+            },
+            {
+                path: 'manageItems',
+                element: <AdminRoutes><ManageItems></ManageItems></AdminRoutes>
             },
             {
                 path: 'allUsers',

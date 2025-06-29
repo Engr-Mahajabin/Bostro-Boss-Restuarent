@@ -132,6 +132,13 @@ async function run() {
             res.send(result);
         })
 
+        // Save the item in menu:
+        app.post('/menu', async (req, res) => {
+            const item = req.body;
+            const result = await menuCollection.insertOne(item);
+            res.send(result);
+        })
+
         // Carts Collection:
         app.get('/carts', verifyToken, async (req, res) => { // change krsi 
             const email = req.query.email;
@@ -140,7 +147,7 @@ async function run() {
             res.send(result);
         })
 
-        app.post('/carts', async (req, res) => {
+        app.post('/carts', verifyToken, verifyAdmin, async (req, res) => {
             const cartItem = req.body;
             const result = await cartCollection.insertOne(cartItem);
             res.send(result);
