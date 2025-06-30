@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaTrash, FaUsers } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import SectionTitles from '../../../Components/SectionTitles';
 
 const AllUsers = () => {
 
@@ -66,9 +67,9 @@ const AllUsers = () => {
     }
     return (
         <div>
-            <div className='flex justify-evenly'>
-                <h2 className='text-3xl'>All Users</h2>
-                <h2 className='text-3xl'>Total Users:{users.length}</h2>
+            <div>
+                <SectionTitles heading="Manage All Users" subHeading="How Many?"></SectionTitles>
+                <h2 className='text-3xl p-6'>Total Users: {users.length}</h2>
             </div>
 
             <div className="overflow-x-auto">

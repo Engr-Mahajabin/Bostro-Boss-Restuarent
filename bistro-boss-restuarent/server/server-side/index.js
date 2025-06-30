@@ -68,7 +68,7 @@ async function run() {
         }
 
         //Users Collection:
-        app.get('/users', verifyToken, verifyAdmin, async (req, res) => {                      // verifyAdmin chilo
+        app.get('/users', verifyToken, verifyAdmin, async (req, res) => {
             const result = await userCollection.find().toArray();
             res.send(result);
         })
@@ -90,7 +90,7 @@ async function run() {
         })
 
         // Check if the user is an Admin:
-        app.patch('/users/admin/:id', verifyToken, verifyAdmin, async (req, res) => {         //VerfyAdmin chilo
+        app.patch('/users/admin/:id', verifyToken, verifyAdmin, async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const updatedDoc = {
@@ -113,7 +113,7 @@ async function run() {
             res.send(result);
         })
 
-        app.delete('/users/:id', verifyToken, verifyAdmin, async (req, res) => {            //VerifyAdmin chilo
+        app.delete('/users/:id', verifyToken, verifyAdmin, async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await userCollection.deleteOne(query);
@@ -126,21 +126,56 @@ async function run() {
             res.send(result);
         })
 
-        //Reviews Collection:
-        app.get('/reviews', async (req, res) => {
-            const result = await reviewCollection.find().toArray();
+        // Update the item in menu:
+        app.get('/menu/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await menuCollection.findOne(query);
             res.send(result);
         })
 
         // Save the item in menu:
-        app.post('/menu', async (req, res) => {
+        app.post('/menu', verifyToken, verifyAdmin, async (req, res) => {
             const item = req.body;
             const result = await menuCollection.insertOne(item);
             res.send(result);
         })
 
+        //Update the item:
+        app.patch('/menu/:id', async (req, res) => {
+            const item = req.body;
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const updatedDoc = {
+                $set: {
+                    name: item.name,
+                    category: item.category,
+                    price: item.price,
+                    recipe: item.recipe,
+                    image: item.image
+                }
+            }
+            const result = await menuCollection.updateOne(filter, updatedDoc);
+            res.send(result);
+        })
+
+        // Delete the menu item:
+        app.delete('/menu/:id', verifyToken, verifyAdmin, async (req, res) => {
+            const id = req.params.id;
+            console.log("Delete request for menu id:", id);
+            const query = { _id: new ObjectId(id) };
+            const result = await menuCollection.deleteOne(query);
+            res.send(result);
+        })
+
+        //Reviews Collection:
+        app.get('/reviews', verifyToken, verifyAdmin, async (req, res) => {
+            const result = await reviewCollection.find().toArray();
+            res.send(result);
+        })
+
         // Carts Collection:
-        app.get('/carts', verifyToken, async (req, res) => { // change krsi 
+        app.get('/carts', verifyToken, async (req, res) => {
             const email = req.query.email;
             const query = { email: email }
             const result = await cartCollection.find(query).toArray();
