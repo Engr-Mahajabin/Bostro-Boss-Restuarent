@@ -5,6 +5,10 @@ const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
 
+    console.log("stripe:", stripe);
+    console.log("elements:", elements);
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -18,6 +22,16 @@ const CheckoutForm = () => {
             return;
         }
 
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card,
+        });
+
+        if (error) {
+            console.log('[error]', error);
+        } else {
+            console.log('[PaymentMethod]', paymentMethod);
+        }
 
     }
     return (
@@ -37,8 +51,7 @@ const CheckoutForm = () => {
                         },
                     },
                 }}
-            >
-            </CardElement>
+            />
 
             <button type="submit" disabled={!stripe}>
                 Pay
