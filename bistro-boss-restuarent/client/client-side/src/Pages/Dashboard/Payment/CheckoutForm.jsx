@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import useCart from '../../../Hooks/useCart';
 
 const CheckoutForm = () => {
+    const [error, setError] = useState('');
+    const [clientSecret, setClientSecret] = useState('');
     const stripe = useStripe();
     const elements = useElements();
+    const axiosSecure = useAxiosSecure();
+    const [cart] = useCart();
+    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
-    console.log("stripe:", stripe);
-    console.log("elements:", elements);
+    useEffect(() => {
+        axiosSecure.post('/create-payment-intent', { price: totalPrice })
+            .then(res => {
+                console.log(res.data.clientSecret);
+                setClientSecret(res.data.clientSecret);
+            })
+    }, [axiosSecure, totalPrice])
 
 
     const handleSubmit = async (event) => {
@@ -29,8 +41,10 @@ const CheckoutForm = () => {
 
         if (error) {
             console.log('[error]', error);
+            setError(error.message);
         } else {
             console.log('[PaymentMethod]', paymentMethod);
+            setError('');
         }
 
     }
@@ -41,7 +55,7 @@ const CheckoutForm = () => {
                     style: {
                         base: {
                             fontSize: '16px',
-                            color: '#424770',     
+                            color: '#424770',
                             '::placeholder': {
                                 color: '#aab7c4',
                             },
@@ -53,10 +67,16 @@ const CheckoutForm = () => {
                 }}
             />
 
-            <button type="submit" disabled={!stripe}>
-                Pay
-            </button>
-
+            <div className="flex justify-center mt-16">
+                <button
+                    className='btn btn-sm btn-primary w-sm'
+                    type="submit"
+                    disabled={!stripe || !clientSecret}
+                >
+                    Pay
+                </button>
+            </div>
+            <p className='text-red-700 text-center mt-6'>{error}</p>
         </form>
     );
 };
