@@ -184,7 +184,7 @@ async function run() {
             res.send(result);
         })
 
-        app.post('/carts', verifyToken, verifyAdmin, async (req, res) => {
+        app.post('/carts', async (req, res) => {        // verifyToken, verifyAdmin
             const cartItem = req.body;
             const result = await cartCollection.insertOne(cartItem);
             res.send(result);
@@ -215,13 +215,13 @@ async function run() {
         });
 
         //Payment history:
-        app.get('/payments/:email',verifyToken,async(req,res)=>{
-            const query = {email:req.params.email}
-            if(req.params.email !== req.decoded.email){
-                return res.status(403).send({message:'forbidden access'});
+        app.get('/payments/:email', verifyToken, async (req, res) => {
+            const query = { email: req.params.email }
+            if (req.params.email !== req.decoded.email) {
+                return res.status(403).send({ message: 'forbidden access' });
             }
             const result = await paymentCollection.find().toArray();
-            res.send();
+            res.send(result);
         })
 
         // Payment related API:
@@ -241,6 +241,38 @@ async function run() {
             res.send({ paymentResult, deleteResult });
         })
 
+        // Stats or Analytics of Admin or User:
+        app.get('/admin-stats', verifyToken, verifyAdmin, async (req, res) => {
+            const users = await userCollection.estimatedDocumentCount();
+            const menuItems = await menuCollection.estimatedDocumentCount();
+            const orders = await paymentCollection.estimatedDocumentCount();
+
+            // This is not good practice:
+            // const payments = await paymentCollection.find().toArray();
+            // const revenue = payments.reduce((total, payment) => total + payment.price, 0);
+
+            const result = await paymentCollection.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        totalRevenue: {
+                            $sum: '$price'
+                        }
+                    }
+                }
+            ]).toArray();
+
+            const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+
+            res.send({
+                users,
+                menuItems,
+                orders,
+                // payments,
+                revenue
+            })
+        })
+
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
@@ -249,6 +281,7 @@ async function run() {
         // await client.close();
     }
 }
+
 run().catch(console.dir);
 
 //Routes

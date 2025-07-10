@@ -4,6 +4,7 @@ import { FaTrash } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { Link } from 'react-router-dom';
+import SectionTitles from '../../../Components/SectionTitles';
 
 const Cart = () => {
     const [cart, refetch] = useCart();
@@ -38,7 +39,8 @@ const Cart = () => {
     }
     return (
         <div className=''>
-            <div className='flex justify-evenly mb-12'>
+            <SectionTitles heading="My Cart" subHeading="Wanna Add More?"></SectionTitles>
+            <div className='flex justify-between  mb-12'>
                 <h2 className='text-4xl'>Total Orders: {cart.length}</h2>
                 <h2 className='text-4xl'>Total Price: {totalPrice}</h2>
                 {
