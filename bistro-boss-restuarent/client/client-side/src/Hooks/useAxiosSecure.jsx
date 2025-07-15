@@ -14,6 +14,7 @@ const useAxiosSecure = () => {
         const token = localStorage.getItem('access-token');
         console.log('Request stopped by interceptors', token);
         config.headers.authorization = `Bearer ${token}`;
+        console.log(config.headers.authorization);
         return config;
     }, async (error) => {
         const status = error.response.status;
@@ -36,3 +37,4 @@ axiosSecure.interceptors.response.use(function (response) {
 });
 
 export default useAxiosSecure;
+
