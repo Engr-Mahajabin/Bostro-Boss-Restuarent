@@ -5,7 +5,7 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { FaDollarSign, FaUsers } from 'react-icons/fa';
 import { GrDeliver } from "react-icons/gr";
 import { BiSolidFoodMenu } from "react-icons/bi";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Pie, PieChart, Legend } from 'recharts';
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 
@@ -15,28 +15,35 @@ const AdminHome = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data: stats } = useQuery({
+    const { data: stats = {}, error: statsError } = useQuery({
         queryKey: ['admin-stats'],
         queryFn: async () => {
             const res = await axiosSecure.get('/admin-stats');
+            console.log('admin-stats response:', res.data);
             return res.data;
+        },
+        onError: (error) => {
+            console.error('admin-stats error:', error);
         }
     });
 
-    const { data: chartData } = useQuery({
+    const { data: chartData = [], error: chartError } = useQuery({
         queryKey: ['order-stats'],
         queryFn: async () => {
             const res = await axiosSecure.get('/order-stats');
+            console.log('order-stats response:', res.data);
             return res.data;
+        }, onError: (error) => {
+            console.error('order-stats error:', error);
         }
-    });
+    })
 
-    // Custom shape for the bar chart:
+    // custom shape for the bar chart
     const getPath = (x, y, width, height) => {
         return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
-  ${x + width / 2}, ${y}
-  C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
-  Z`;
+        ${x + width / 2}, ${y}
+        C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
+        Z`;
     };
 
     const TriangleBar = (props) => {
@@ -45,19 +52,24 @@ const AdminHome = () => {
         return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
     };
 
-    //Custom shape for pie chart:
+    // custom shape for the pie chart
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x = cx + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
-        const y = cy + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return (
             <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                {`${((percent ?? 1) * 100).toFixed(0)}%`}
+                {`${(percent * 100).toFixed(0)}%`}
             </text>
         );
     };
+
+    const pieChartData = chartData.map(data => {
+        return { name: data.category, value: data.revenue }
+    })
+
 
     return (
         <div>
@@ -109,8 +121,8 @@ const AdminHome = () => {
             </div>
 
             {/* Bar chart */}
-            <div className='flex'>
-                <div className='w-1/2'>
+            <div className="flex">
+                <div className="w-1/2">
                     <BarChart
                         width={500}
                         height={300}
@@ -132,10 +144,12 @@ const AdminHome = () => {
                         </Bar>
                     </BarChart>
                 </div>
-                <div className='w-1/2'>
+
+                {/* pie chart */}
+                <div className="w-1/2">
                     <PieChart width={400} height={400}>
                         <Pie
-                            data={data}
+                            data={pieChartData}
                             cx="50%"
                             cy="50%"
                             labelLine={false}
@@ -144,10 +158,11 @@ const AdminHome = () => {
                             fill="#8884d8"
                             dataKey="value"
                         >
-                            {data.map((entry, index) => (
-                                <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
+                            {pieChartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
+                        <Legend></Legend>
                     </PieChart>
                 </div>
             </div>

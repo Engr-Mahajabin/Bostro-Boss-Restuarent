@@ -12,8 +12,9 @@ const useAxiosSecure = () => {
     // Request interceptor to add authorization header for every secure call to the API:
     axiosSecure.interceptors.request.use(function (config) {
         const token = localStorage.getItem('access-token');
+        console.log('Interceptor token:', token);
         console.log('Request stopped by interceptors', token);
-        config.headers.authorization = `Bearer ${token}`;
+        config.headers.authorization = `Bearer ${token}`;                    // authorization chilo
         console.log(config.headers.authorization);
         return config;
     }, async (error) => {
