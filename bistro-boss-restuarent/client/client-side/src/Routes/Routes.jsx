@@ -19,6 +19,7 @@ import Payment from "../Pages/Dashboard/Payment/Payment.jsx";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory.jsx";
 import UserHome from "../Pages/Dashboard/UserHome/UserHome.jsx";
 import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome.jsx";
+import Reservation from "../Pages/Dashboard/Reservation/Reservation.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
             {
                 path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: 'reservation',
+                element: <Reservation></Reservation>
             },
 
             // Only Admin Routes:
