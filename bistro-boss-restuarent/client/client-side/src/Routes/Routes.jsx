@@ -20,6 +20,10 @@ import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory.jsx
 import UserHome from "../Pages/Dashboard/UserHome/UserHome.jsx";
 import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome.jsx";
 import Reservation from "../Pages/Dashboard/Reservation/Reservation.jsx";
+import AddReview from "../Pages/Dashboard/AddReview/AddReview.jsx";
+import Contact from "../Pages/Contact/Contact.jsx";
+import NotFound from "../Pages/NotFound/NotFound.jsx";
+import Booking from "../Pages/Dashboard/Booking/Booking.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +39,10 @@ export const router = createBrowserRouter([
                 element: <Menu></Menu>
             },
             {
+                path: 'contact',
+                element: <Contact></Contact>
+            },
+            {
                 path: 'shop/:category',
                 element: <Shop></Shop>
             },
@@ -46,10 +54,10 @@ export const router = createBrowserRouter([
                 path: 'signup',
                 element: <SignUp></SignUp>
             },
-            {
-                path: 'secret',
-                element: <PrivateRoutes><Secret></Secret></PrivateRoutes>
-            },
+            // {
+            //     path: 'secret',
+            //     element: <PrivateRoutes><Secret></Secret></PrivateRoutes>
+            // },
         ]
     },
     {
@@ -77,6 +85,14 @@ export const router = createBrowserRouter([
                 path: 'reservation',
                 element: <Reservation></Reservation>
             },
+            {
+                path: 'addReview',
+                element: <AddReview></AddReview>
+            },
+            {
+                path: 'booking',
+                element: <Booking></Booking>
+            },
 
             // Only Admin Routes:
             {
@@ -101,6 +117,10 @@ export const router = createBrowserRouter([
                 element: <AdminRoutes><AllUsers></AllUsers></AdminRoutes>
             },
         ]
-    }
+    },
+    {
+        path: '*',
+        element: <NotFound></NotFound>
+    },
 ]);
 

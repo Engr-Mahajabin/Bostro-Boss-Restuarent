@@ -33,6 +33,7 @@ async function run() {
     const reviewCollection = client.db("bistroDB").collection("reviews");
     const cartCollection = client.db("bistroDB").collection("carts");
     const paymentCollection = client.db("bistroDB").collection("payments");
+    const bookingsCollection = client.db("bistroDB").collection("bookings");
 
     // JWT related api:
     app.post("/jwt", (req, res) => {
@@ -248,6 +249,18 @@ async function run() {
 
       const deleteResult = await cartCollection.deleteMany(query);
       res.send({ paymentResult, deleteResult });
+    });
+
+    // Booking related API:
+    app.post("/bookings", async (req, res) => {
+      const booking = req.body;
+      const result = await bookingsCollection.insertOne(booking);
+      res.send(result);
+    });
+
+    app.get("/bookings", async (req, res) => {
+      const result = await bookingsCollection.find().toArray();
+      res.send(result);
     });
 
     // Stats or Analytics of Admin or User:

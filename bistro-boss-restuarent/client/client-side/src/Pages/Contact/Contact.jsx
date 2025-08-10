@@ -1,12 +1,16 @@
 import React from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import InfoCards from '../../Components/InfoCards';
+import SectionTitles from '../../Components/SectionTitles';
+import Cover from '../Shared/Cover/Cover';
+import contactImg from '../../assets/contact/banner.jpg'
+
 
 const Contact = () => {
     return (
-        <div>
+        <div className='mb-20'>
+            <Cover img={contactImg} title='Contact Us'></Cover>
             <SectionTitles heading="our location" subHeading="Visit Us"></SectionTitles>
-
             {/* Cards */}
             <InfoCards></InfoCards>
             {/* Contact Form */}
@@ -30,7 +34,7 @@ const Contact = () => {
                     <textarea placeholder="Write your message here" rows={4} className="border border-gray-300 p-2 rounded" />
                 </div>
                 <div className="md:col-span-2 text-center">
-                    <button type="submit" className="bg-orange-500 text-white py-2 px-6 rounded hover:bg-yellow-600 inline-flex items-center gap-2">
+                    <button type="submit" className="bg-orange-500 text-white py-2 px-6 rounded inline-flex items-center gap-2">
                         Send Message <FaPaperPlane />
                     </button>
                 </div>

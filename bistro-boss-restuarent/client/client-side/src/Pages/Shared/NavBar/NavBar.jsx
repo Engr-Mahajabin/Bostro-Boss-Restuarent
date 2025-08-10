@@ -22,7 +22,7 @@ const NavBar = () => {
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/shop/salad">Our Shop</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
-        <li><Link to="/secret">Secret</Link></li>
+
         {
             user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
         }
@@ -44,7 +44,7 @@ const NavBar = () => {
             </> : <>
                 <li><Link to="/login">Login</Link></li></>
         }
-        <li><Link to="dashboard">Dashboard</Link></li>
+
     </>
     );
 
