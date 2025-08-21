@@ -259,6 +259,7 @@ async function run() {
     });
 
     app.get("/bookings", async (req, res) => {
+      console.log("Bookings API hit ✅");
       const result = await bookingsCollection.find().toArray();
       res.send(result);
     });
