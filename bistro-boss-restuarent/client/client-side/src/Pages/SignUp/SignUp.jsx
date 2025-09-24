@@ -3,8 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { useForm } from "react-hook-form"
 import { AuthContext } from '../../Providers/AuthProvider';
 import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import signupImg from '../../assets/others/authentication2.png';
+import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
@@ -53,16 +55,13 @@ const SignUp = () => {
             <Helmet>
                 <title>Bistro Boss | Sign Up</title>
             </Helmet>
-            <div className="hero bg-base-200 min-h-screen">
+            <div className="hero bg-amber-100 min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold">SignUp now!</h1>
-                        <p className="py-6">
-                            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                            quasi. In deleniti eaque aut repudiandae et a id nisi.
-                        </p>
+                        <img src={signupImg} alt="" />
                     </div>
                     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                        <h2 className="text-2xl font-bold text-center px-4 py-4">Sign Up</h2>
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <fieldset className="fieldset">
                                 <label className="label">Name</label>
@@ -82,10 +81,13 @@ const SignUp = () => {
                                 {errors.password?.type === "required" && (<p role="alert">Password is required</p>)}
                                 {errors.password?.type === "minLength" && (<p className='text-red-500'>Password must be 6 characters</p>)}
                                 {errors.password?.type === "maxLength" && (<p className='text-red-500'>Password must be less than 20 characters</p>)}
-
-                                <div><a className="link link-hover">Forgot password?</a></div>
-                                <input className="btn btn-neutral mt-4" type="submit" value="Sign Up" />
+                                <input className="btn btn-neutral mt-4 bg-gradient-to-r from-orange-400 to-yellow-400 text-black border-none" type="submit" value="Sign Up" />
                             </fieldset>
+                            <div className='text-center'>
+                                <p><small>Already registered? <Link to="/login">Go to login</Link></small></p>
+                                <p>Or sign up with</p>
+                            </div>
+                            <SocialLogin></SocialLogin>
                         </form>
                     </div>
                 </div>

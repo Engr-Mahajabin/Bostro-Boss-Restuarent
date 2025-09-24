@@ -35,7 +35,7 @@ const Dashboard = () => {
                                     <FaList></FaList>
                                     Manage Items</NavLink>
                                 </li>
-                                <li><NavLink to='/dashboard/manageBookings'>
+                                <li><NavLink to='/dashboard/manageBooking'>
                                     <FaCalendarCheck></FaCalendarCheck>
                                     Manage Bookings</NavLink>
                                 </li>
@@ -66,7 +66,7 @@ const Dashboard = () => {
                                     <FaStar></FaStar>
                                     Add Review</NavLink>
                                 </li>
-                                <li><NavLink to='/dashboard/myBooking'>
+                                <li><NavLink to='/dashboard/booking'>
                                     <FaCalendarCheck></FaCalendarCheck>
                                     My Booking</NavLink>
                                 </li>
@@ -80,19 +80,18 @@ const Dashboard = () => {
                         <FaHome></FaHome>
                         User Home</NavLink>
                     </li>
-                    <li><NavLink to='/dashboard/menu'>
+                    <li><NavLink to='/menu'>
                         <FaList></FaList>
                         Menu</NavLink>
                     </li>
-                    <li><NavLink to='/dashboard/shop'>
+                    <li><NavLink to='/shop/:category'>
                         <FaShopify></FaShopify>
                         Shop</NavLink>
                     </li>
-                    <li><NavLink to='/dashboard/contact'>
+                    <li><NavLink to='/contact'>
                         <FaEnvelope></FaEnvelope>
                         Contact</NavLink>
                     </li>
-
                 </ul>
             </div>
 

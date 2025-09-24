@@ -7,7 +7,7 @@ import Shop from "../Pages/Shop/Shop.jsx";
 import Login from "../Pages/Login/Login.jsx";
 import SignUp from "../Pages/SignUp/SignUp.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx";
-import Secret from "../Pages/Shared/Secret/Secret.jsx";
+// import Secret from "../Pages/Shared/Secret/Secret.jsx";
 import Dashboard from "../Layout/Dashboard.jsx";
 import Cart from "../Pages/Dashboard/Cart/Cart.jsx";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers.jsx";
@@ -24,6 +24,7 @@ import AddReview from "../Pages/Dashboard/AddReview/AddReview.jsx";
 import Contact from "../Pages/Contact/Contact.jsx";
 import NotFound from "../Pages/NotFound/NotFound.jsx";
 import Booking from "../Pages/Dashboard/Booking/Booking.jsx";
+import ManageBooking from "../Pages/Dashboard/ManageBooking/ManageBooking.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -106,6 +107,10 @@ export const router = createBrowserRouter([
             {
                 path: 'manageItems',
                 element: <AdminRoutes><ManageItems></ManageItems></AdminRoutes>
+            },
+            {
+                path: 'manageBooking',
+                element: <AdminRoutes><ManageBooking></ManageBooking></AdminRoutes>
             },
             {
                 path: 'updateItem/:id',

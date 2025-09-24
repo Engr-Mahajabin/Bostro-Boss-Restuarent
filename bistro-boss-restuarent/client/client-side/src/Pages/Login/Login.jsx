@@ -4,6 +4,7 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2'
 import SocialLogin from '../../Components/SocialLogin/SocialLogin';
+import loginImg from '../../assets/others/authentication2.png'
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
@@ -48,16 +49,13 @@ const Login = () => {
             <Helmet>
                 <title>Bistro Boss | Login</title>
             </Helmet>
-            <div className="hero bg-base-200 min-h-screen">
+            <div className="hero min-h-screen bg-amber-100">
                 <div className="hero-content flex">
                     <div className="text-center md:w-1/2 lg:text-left">
-                        <h1 className="text-5xl font-bold">Login now!</h1>
-                        <p className="py-6">
-                            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                            quasi. In deleniti eaque aut repudiandae et a id nisi.
-                        </p>
+                        <img src={loginImg} alt="" />
                     </div>
-                    <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
+                    <div className="card bg-base-100 w-full max-w-sm shadow-2xl justify-center px-8 py-10">
+                        <h2 className="text-2xl font-bold text-center mb-2">Login</h2>
                         <form onSubmit={handleLogin} className="card-body">
                             <fieldset className="fieldset">
                                 <label className="label">Email</label>
@@ -67,14 +65,22 @@ const Login = () => {
                                 <input name="password" type="password" className="input" placeholder="Password" />
 
                                 <div><a className="link link-hover">Forgot password?</a></div>
-                                <input className="btn btn-neutral mt-4" type="submit" value="Login" />
+                                {/* <input className="btn btn-neutral mt-4" type="submit" value="Login" /> */}
+                                {/* Button */}
+                                <button
+                                    type="submit"
+                                    className="btn w-full bg-gradient-to-r from-orange-400 to-yellow-400 text-black border-none"
+                                >
+                                    Login
+                                </button>
                             </fieldset>
                         </form>
                         <div className="divider">OR</div>
-                        <SocialLogin></SocialLogin>
                         <div className='text-center'>
-                            <p><small>New Here? <Link to="/signup">Create an account</Link></small></p>
+                            <p><small>New Here? <Link to="/signup">Create a new account</Link></small></p>
+                            <p>Or sign in with</p>
                         </div>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

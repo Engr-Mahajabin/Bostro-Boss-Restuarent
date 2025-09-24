@@ -3,6 +3,7 @@ import SectionTitles from '../../../Components/SectionTitles';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import useBookings from '../../../Hooks/useBookings';
+import { FaTrash } from 'react-icons/fa';
 
 const Booking = () => {
     const [bookings, refetch] = useBookings();
@@ -41,7 +42,7 @@ const Booking = () => {
                         TOTAL BOOKINGS: <span>{bookings.length}</span>
                     </h2>
                     <h2 className="text-xl font-semibold">
-                        TOTAL PRICE: <span>${totalPrice.toFixed(2)}</span>
+                        TOTAL PRICE: <span>${totalPrice}</span>
                     </h2>
                     <button className="bg-orange-400 text-black px-4 py-2 rounded">
                         PAY
@@ -75,13 +76,13 @@ const Booking = () => {
                                     </td>
                                     <td>{booking.guests} guest</td>
                                     <td>${booking.category}</td>
-                                    <td>${booking.price.toFixed(2)}</td>
+                                    <td>${booking.price}</td>
                                     <td>
                                         <button
                                             onClick={() => handleDelete(booking)}
-                                            className="btn btn-sm bg-orange-500"
+                                            className="btn btn-ghost btn-lg"
                                         >
-                                            <FaTrash />
+                                            <FaTrash className='text-orange-500'></FaTrash>
                                         </button>
                                     </td>
                                 </tr>

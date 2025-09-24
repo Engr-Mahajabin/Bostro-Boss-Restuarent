@@ -26,13 +26,14 @@ const SocialLogin = () => {
     }
 
     return (
-        <div className='p-6'>
-            <div>
-                <button onClick={handleGoogleSignIn} className="btn bg-black text-white border-[#e5e5e5]">
-                    <FaGoogle className='m-2'></FaGoogle>
-                    Login with Google
-                </button>
-            </div>
+        <div>
+            <button onClick={handleGoogleSignIn}
+                type="submit"
+                className="btn w-full bg-gradient-to-r from-orange-400 to-yellow-400 text-black border-none"
+            >
+                <FaGoogle className='m-2'></FaGoogle>
+                Login with Google
+            </button>
         </div>
     );
 };
