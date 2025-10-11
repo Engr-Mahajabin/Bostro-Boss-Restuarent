@@ -10,4 +10,4 @@ const paymentSchema = new mongoose.Schema({
   status: { type: String, default: "completed" },
 });
 
-module.exports = mongoose.model("Payment", paymentSchema);
+module.exports = mongoose.model("Payment", paymentSchema, "payments");

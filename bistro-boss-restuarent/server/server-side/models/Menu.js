@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema({
   name: String,
-  image: String,
   category: String,
   price: Number,
   recipe: String,
+  image: String,
 });
 
-module.exports = mongoose.model("Menu", menuSchema);
+// 3rd parameter = exact collection name in MongoDB
+module.exports = mongoose.model("Menu", menuSchema, "menu");
