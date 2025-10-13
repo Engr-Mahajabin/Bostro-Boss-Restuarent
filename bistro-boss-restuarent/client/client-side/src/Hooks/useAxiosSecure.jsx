@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import useAuth from './useAuth';
 
 export const axiosSecure = axios.create({
@@ -23,7 +23,7 @@ const useAxiosSecure = () => {
         // If the status is 401 or 403, logout the user and navigate to the login page:
         if (status === 401 || status === 403) {
             await logOut();
-            // navigate('/login');
+            //navigate('/login');
         }
         return Promise.reject(error);
     });
