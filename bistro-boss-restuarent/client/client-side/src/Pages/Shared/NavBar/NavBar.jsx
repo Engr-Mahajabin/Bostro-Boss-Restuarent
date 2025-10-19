@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import useCart from '../../../Hooks/useCart';
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import useAdmin from '../../../Hooks/useAdmin';
 
 
@@ -23,28 +23,46 @@ const NavBar = () => {
         <li><Link to="/shop/salad">Our Shop</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
 
-        {
-            user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
-        }
-        {
-            user && !isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
-        }
-        <li><Link to="/dashboard/cart">
+        {user && isAdmin && (
+            <li>
+                <Link to="/dashboard/adminHome">Dashboard</Link>
+            </li>
+        )}
+        {user && !isAdmin && (
+            <li>
+                <Link to="/dashboard/userHome">Dashboard</Link>
+            </li>
+        )}
+
+        {/* <li><Link to="/dashboard/cart">
             <button className="btn">
                 <FaShoppingCart className='mr-2'></FaShoppingCart>
                 <div className="badge badge-sm badge-secondary">+{cart.length}</div>
             </button>
-        </Link></li>
+        </Link></li> */}
 
+        <li>
+            <Link to="/dashboard/cart">
+                <button className="relative flex items-center text-white transition-all duration-300">
+                    <FaShoppingCart className="text-2xl" />
+
+                    {/* Badge */}
+                    {cart.length > 0 && (
+                        <span className="absolute -top-2 -right-3 bg-orange-400 text-black text-xs font-bold rounded-full px-2 py-0.5 shadow-md">
+                            {cart.length}
+                        </span>
+                    )}
+                </button>
+            </Link>
+        </li>
 
         {
             user ? <>
                 <span>{user?.displayName}</span>
-                <button onClick={handleLogout} className="btn btn-ghost">Logout</button>
+                <button onClick={handleLogout} className="btn">Logout</button>
             </> : <>
                 <li><Link to="/login">Login</Link></li></>
         }
-
     </>
     );
 
@@ -62,15 +80,12 @@ const NavBar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">Bistro Boss <br />Restuarent</a>
+                    <a className="text-xl">Bistro Boss <br />Restuarent</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {navOptions}
                     </ul>
-                </div>
-                <div className="navbar-end">
-                    <a className="btn">Button</a>
                 </div>
             </div>
         </>
