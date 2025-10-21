@@ -38,7 +38,7 @@ const AdminHome = () => {
         }
     })
 
-    // custom shape for the bar chart
+    // // custom shape for the bar chart
     const getPath = (x, y, width, height) => {
         return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
         ${x + width / 2}, ${y}
@@ -52,7 +52,7 @@ const AdminHome = () => {
         return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
     };
 
-    // custom shape for the pie chart
+    // // custom shape for the pie chart
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -82,37 +82,37 @@ const AdminHome = () => {
 
             <br />
 
-            <div className="stats shadow">
-                <div className="stat">
+            <div className="flex flex-wrap gap-4 stats shadow p-4">
+                <div className="stat bg-white p-4 rounded-lg flex-1">
                     <div className="stat-figure text-orange-500">
-                        <FaDollarSign className='text-3xl'></FaDollarSign>
+                        <FaDollarSign className='text-3xl' />
                     </div>
                     <div className="stat-title">Revenue</div>
                     <div className="stat-value">${stats?.revenue}</div>
                     <div className="stat-desc">Jan 1st - Feb 1st</div>
                 </div>
 
-                <div className="stat">
+                <div className="stat bg-white p-4 rounded-lg flex-1">
                     <div className="stat-figure text-orange-500">
-                        <FaUsers className='text-3xl'></FaUsers>
+                        <FaUsers className='text-3xl' />
                     </div>
                     <div className="stat-title">Users</div>
                     <div className="stat-value">{stats?.users}</div>
                     <div className="stat-desc">↗︎ 400 (22%)</div>
                 </div>
 
-                <div className="stat">
+                <div className="stat bg-white p-4 rounded-lg flex-1">
                     <div className="stat-figure text-orange-500">
-                        <BiSolidFoodMenu className='text-3xl'></BiSolidFoodMenu>
+                        <BiSolidFoodMenu className='text-3xl' />
                     </div>
                     <div className="stat-title">Menu Items</div>
                     <div className="stat-value">{stats?.menuItems}</div>
                     <div className="stat-desc">↗︎ 400 (22%)</div>
                 </div>
 
-                <div className="stat">
+                <div className="stat bg-white p-4 rounded-lg flex-1">
                     <div className="stat-figure text-orange-500">
-                        <GrDeliver className='text-3xl'></GrDeliver>
+                        <GrDeliver className='text-3xl' />
                     </div>
                     <div className="stat-title">Orders</div>
                     <div className="stat-value">{stats?.orders}</div>
@@ -120,9 +120,9 @@ const AdminHome = () => {
                 </div>
             </div>
 
-            {/* Bar chart */}
-            <div className="flex">
-                <div className="w-1/2">
+            <div className="flex flex-col lg:flex-row gap-8 mt-8 justify-center items-center">
+                {/* Bar chart */}
+                <div className="flex-1 flex justify-center">
                     <BarChart
                         width={500}
                         height={300}
@@ -137,24 +137,29 @@ const AdminHome = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="category" />
                         <YAxis />
-                        <Bar dataKey="quantity" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+                        <Bar
+                            dataKey="quantity"
+                            fill="#8884d8"
+                            shape={<TriangleBar />}
+                            label={{ position: 'top' }}
+                        >
                             {chartData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={colors[index % 6]} />
+                                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                             ))}
                         </Bar>
                     </BarChart>
                 </div>
 
-                {/* pie chart */}
-                <div className="w-1/2">
-                    <PieChart width={400} height={400}>
+                {/* Pie chart */}
+                <div className="flex-1 flex justify-center">
+                    <PieChart width={350} height={350}>
                         <Pie
                             data={pieChartData}
                             cx="50%"
                             cy="50%"
                             labelLine={false}
                             label={renderCustomizedLabel}
-                            outerRadius={80}
+                            outerRadius={100} // slightly bigger radius
                             fill="#8884d8"
                             dataKey="value"
                         >
@@ -162,10 +167,17 @@ const AdminHome = () => {
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
-                        <Legend></Legend>
+                        <Legend
+                            verticalAlign="bottom"
+                            align="center"
+                            iconSize={10}
+                            layout="horizontal"
+                            wrapperStyle={{ marginTop: 10 }}
+                        />
                     </PieChart>
                 </div>
             </div>
+
         </div>
     );
 };

@@ -3,19 +3,31 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { FaCalendar, FaCalendarCheck, FaEnvelope, FaHome, FaList, FaShopify, FaShoppingCart, FaStar, FaUsers, FaUtensils, FaWallet } from 'react-icons/fa';
 import useCart from '../Hooks/useCart';
 import useAdmin from '../Hooks/useAdmin';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
     const [cart] = useCart();
 
-    //Get Admni value from the database:
+    //Get Admin value from the database:
     const [isAdmin] = useAdmin();
     console.log('Admin', isAdmin);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAdmin) {
+            navigate("/dashboard/adminHome", { replace: true });
+        } else {
+            navigate("/dashboard/userHome", { replace: true });
+        }
+    }, [isAdmin, navigate]);
 
     return (
         <div className='flex'>
             {/* Dashboard side bar */}
             <div className='w-64 min-h-screen bg-orange-400'>
-                <h1 className='text-3xl text-bold'>Bistro Boss Restuarent</h1>
+                <h1 className='text-3xl text-bold ml-6'>Bistro Boss Restuarent</h1>
 
                 <div className="divider"></div>
 
@@ -76,9 +88,9 @@ const Dashboard = () => {
                     <div className="divider"></div>
 
                     {/* ata home hobe */}
-                    <li><NavLink to='/dashboard/userHome'>
+                    <li><NavLink to='/'>
                         <FaHome></FaHome>
-                        User Home</NavLink>
+                        Home</NavLink>
                     </li>
                     <li><NavLink to='/menu'>
                         <FaList></FaList>
