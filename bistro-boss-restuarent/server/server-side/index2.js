@@ -336,6 +336,48 @@ async function run() {
       res.send(result);
     });
 
+    // ✅ User Stats API (Dynamic)
+    app.get("/user-stats", async (req, res) => {
+      const email = req.query.email;
+
+      if (!email) {
+        return res.status(400).send({ message: "Email is required" });
+      }
+
+      try {
+        const bookingsCount = await bookingsCollection.countDocuments({
+          email,
+        });
+        const reviewsCount = await reviewCollection.countDocuments({ email });
+        const ordersCount = await paymentCollection.countDocuments({ email });
+        const menuItemsCount = await menuCollection.estimatedDocumentCount();
+
+        const userReviews = await reviewCollection
+          .find({ email })
+          .sort({ date: -1 })
+          .limit(3)
+          .toArray();
+
+        const recommended = [
+          "Grilled Chicken",
+          "Pasta Alfredo",
+          "Tandoori Pizza",
+        ];
+
+        res.send({
+          bookings: bookingsCount,
+          reviews: reviewsCount,
+          orders: ordersCount,
+          menuItems: menuItemsCount,
+          recentReviews: userReviews.map((r) => r.comment),
+          recommended,
+        });
+      } catch (error) {
+        console.error("Error fetching user stats:", error);
+        res.status(500).send({ message: "Internal Server Error", error });
+      }
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
