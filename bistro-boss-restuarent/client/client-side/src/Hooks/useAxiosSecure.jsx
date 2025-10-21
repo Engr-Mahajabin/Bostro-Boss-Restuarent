@@ -4,7 +4,8 @@ import React from 'react';
 import useAuth from './useAuth';
 
 export const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    // baseURL: 'http://localhost:5000'
+    baseURL: import.meta.env.VITE_BACKEND_URL // now points to live backend
 })
 const useAxiosSecure = () => {
     // const navigate = useNavigate();
