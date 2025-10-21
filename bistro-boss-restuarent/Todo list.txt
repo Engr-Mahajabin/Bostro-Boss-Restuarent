@@ -1,0 +1,2 @@
+Frontend: userhome, adminhome,
+Backend: review(user), booking(bug), update item(admin), manage bookings(admin), manage review(admin),
