@@ -78,10 +78,10 @@ const Dashboard = () => {
                                     <FaStar></FaStar>
                                     Add Review</NavLink>
                                 </li>
-                                <li><NavLink to='/dashboard/booking'>
+                                {/* <li><NavLink to='/dashboard/booking'>
                                     <FaCalendarCheck></FaCalendarCheck>
                                     My Booking</NavLink>
-                                </li>
+                                </li> */}
                             </>
                     }
 
