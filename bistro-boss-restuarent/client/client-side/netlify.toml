@@ -1,7 +1,7 @@
 [build]
-  base = "client/client-side"
+  base = "client" 
+  publish = "build"
   command = "npm run build"
-  publish = "client/client-side/dist"
 
 [[redirects]]
   from = "/*"
