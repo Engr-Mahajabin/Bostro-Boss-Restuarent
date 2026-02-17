@@ -9,11 +9,10 @@ Bistro Boss is a modern restaurant web application where customers can explore t
 ## ✨ Features
 
 ### 👨‍🍳 User Features
-- 🍔 **Dynamic Menu Display** – Browse food items by category (Salad, Pizza, Soup, Dessert, etc.)
+- 🍔 **Dynamic Menu Display** – Browse food items by category (Salad, Pizza, Soup, Dessert, Drink etc.)
 - 🛒 **Add to Cart & Checkout** – Seamless shopping cart and secure payment integration via **Stripe**
 - 🔐 **User Authentication** – Sign up, login, and role-based access using **JWT**
 - 📦 **Order History** – View placed orders, transaction status, and payment history
-- 💬 **Responsive UI** – Optimized for desktop, tablet, and mobile devices
 
 ### 🧑‍💼 Admin Features
 - 📊 **Admin Dashboard** – Manage users, monitor sales, and control food items
@@ -34,13 +33,13 @@ Bistro Boss is a modern restaurant web application where customers can explore t
 | Authentication | JWT / Firebase Auth |
 | Payment | Stripe |
 | State Management | React Query, Context API |
-| Hosting | Vercel (Frontend), Render / Vercel (Backend) |
+| Hosting | Vercel (Frontend), Render (Backend) |
 
 ---
 
 ## 🔗 Live Demo
 
-👉 [Visit Bistro Boss Restaurant Live](https://your-live-demo-link.com)
+👉 [Visit Bistro Boss Restaurant Live](https://client-side-nine-chi.vercel.app/)
 
 ---
 
@@ -50,11 +49,11 @@ To run this project locally, follow these steps:
 
 1. Clone the repository
 
-git clone https://github.com/yourusername/bistro-boss.git
+git clone https://github.com/Engr-Mahajabin/Bostro-Boss-Restuarent
 
 2. Navigate into the project directory
 
-cd bistro-boss
+cd bistro-boss-restuarent
 
 3. Install dependencies for both frontend & backend
 
